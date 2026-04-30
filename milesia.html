@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milesia Limited</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-deep:    #0d1f14;
+      --green-mid:     #142b1c;
+      --green-accent:  #1e3d28;
+      --gold:          #c8a84b;
+      --gold-light:    #e2c97e;
+      --gold-muted:    #8a6e2f;
+      --stone:         #d4cfc4;
+      --stone-muted:   #9e9a8e;
+      --white:         #f5f2eb;
+      --divider:       rgba(200, 168, 75, 0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--green-deep);
+      color: var(--stone);
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 3rem;
+      background: rgba(13, 31, 20, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .nav-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--stone-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold-light); }
+
+    /* ── Hero ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 5rem;
+      overflow: hidden;
+    }
+
+    .hero-bg-ring {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 168, 75, 0.08);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse-ring 8s ease-in-out infinite;
+    }
+    .hero-bg-ring:nth-child(2) {
+      width: 820px; height: 820px;
+      animation-delay: 2s;
+      border-color: rgba(200, 168, 75, 0.05);
+    }
+    .hero-bg-ring:nth-child(3) {
+      width: 1080px; height: 1080px;
+      animation-delay: 4s;
+      border-color: rgba(200, 168, 75, 0.03);
+    }
+
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
+    }
+
+    .hero-logo-placeholder {
+      position: relative;
+      width: 200px; height: 200px;
+      border: 1px solid var(--divider);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      background: var(--green-accent);
+      /* Replace with: <img src="your-logo.png" alt="Milesia Limited"> */
+    }
+
+    .hero-logo-placeholder span {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-muted);
+      text-transform: uppercase;
+    }
+
+    /* decorative corner marks */
+    .hero-logo-placeholder::before,
+    .hero-logo-placeholder::after {
+      content: '';
+      position: absolute;
+      width: 12px; height: 12px;
+      border-color: var(--gold);
+      border-style: solid;
+    }
+    .hero-logo-placeholder::before {
+      top: -1px; left: -1px;
+      border-width: 2px 0 0 2px;
+    }
+    .hero-logo-placeholder::after {
+      bottom: -1px; right: -1px;
+      border-width: 0 2px 2px 0;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+      color: var(--gold-light);
+      text-shadow: 0 2px 40px rgba(200, 168, 75, 0.2);
+      margin-bottom: 0.4rem;
+      position: relative;
+    }
+
+    .hero-sub {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      letter-spacing: 0.2em;
+      color: var(--gold-muted);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 2rem;
+    }
+
+    .hero-desc {
+      max-width: 560px;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--stone-muted);
+      position: relative;
+    }
+
+    /* ── Sections generic ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 600;
+      color: var(--gold-light);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.8rem;
+    }
+
+    .gold-rule {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 2.2rem;
+      opacity: 0.6;
+    }
+
+    p { margin-bottom: 1.2rem; color: var(--stone); }
+
+    /* ── Section divider ── */
+    .full-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--divider) 20%, var(--divider) 80%, transparent);
+      margin: 0 auto;
+    }
+
+    /* ── Projects ── */
+    #projects .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .project-card {
+      border: 1px solid var(--divider);
+      background: var(--green-mid);
+      padding: 2.2rem 2rem;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200,168,75,0.04), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: rgba(200,168,75,0.5);
+      transform: translateY(-3px);
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    /* corner accent */
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 0 28px 28px 0;
+      border-color: transparent var(--gold-muted) transparent transparent;
+      opacity: 0.4;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover::after { opacity: 0.9; }
+
+    .card-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.64rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      color: var(--gold-light);
+      margin-bottom: 0.8rem;
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      color: var(--stone-muted);
+      margin-bottom: 1.4rem;
+      line-height: 1.6;
+    }
+
+    .card-link {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-link::after { content: '→'; }
+
+    /* ── Payments ── */
+    #payments .payment-note {
+      border-left: 2px solid var(--gold-muted);
+      padding-left: 1.6rem;
+      font-style: italic;
+      color: var(--stone-muted);
+      font-size: 1rem;
+    }
+
+    /* ── Contact ── */
+    #contact .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .contact-item .label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-item a, .contact-item span {
+      color: var(--stone);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+
+    .contact-item a:hover { color: var(--gold-light); }
+
+    /* ── Registered details ── */
+    #registered address {
+      font-style: normal;
+      font-size: 0.95rem;
+      color: var(--stone-muted);
+      line-height: 2;
+      border: 1px solid var(--divider);
+      display: inline-block;
+      padding: 1.6rem 2rem;
+      background: var(--green-mid);
+    }
+
+    address strong {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── Policies ── */
+    #policies .policy-block {
+      margin-bottom: 3rem;
+    }
+
+    #policies h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    #policies p {
+      font-size: 0.95rem;
+      color: var(--stone-muted);
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--divider);
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      color: var(--gold-muted);
+      text-transform: uppercase;
+    }
+
+    /* ── Fade-in on scroll ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.4rem; }
+      .nav-links { gap: 1.2rem; }
+      .nav-links a { font-size: 0.62rem; }
+      section { padding: 4rem 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-brand">Milesia Ltd</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#payments">Payments</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#policies">Policies</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div id="hero">
+    <div class="hero-bg-ring"></div>
+    <div class="hero-bg-ring"></div>
+    <div class="hero-bg-ring"></div>
+
+    <!-- Replace this placeholder with your actual logo image -->
+    <div class="hero-logo-placeholder" aria-label="Milesia Limited logo placeholder">
+      <span>Logo</span>
+    </div>
+
+    <p class="hero-eyebrow">Est. Cyprus</p>
+    <h1>Milesia</h1>
+    <p class="hero-sub">Limited</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">A Cyprus-registered holding and operations company supporting a portfolio of wellness, events, and service ventures.</p>
+  </div>
+
+  <div class="full-divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <p class="section-label">Who We Are</p>
+    <h2>Business Operations & Portfolio</h2>
+    <div class="gold-rule"></div>
+    <p>Milesia Limited is a Cyprus-based business operations company. We provide the commercial and administrative infrastructure that underpins a growing portfolio of wellness, events, and professional service ventures.</p>
+    <p>Milesia operates and supports a portfolio of ventures including Nine Waves and Reset Clann, handling client billing, payment processing, and business operations on their behalf.</p>
+  </section>
+
+  <div class="full-divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="reveal">
+    <p class="section-label">Our Ventures</p>
+    <h2>Current Projects</h2>
+    <div class="gold-rule"></div>
+    <div class="cards">
+
+      <a href="https://9-waves.com/" target="_blank" rel="noopener" class="project-card">
+        <p class="card-tag">Wellness · Ritual</p>
+        <p class="card-title">Nine Waves</p>
+        <p class="card-desc">Mobile sauna rental bringing ancient heat ritual to modern gatherings, events, and private bookings across the island.</p>
+        <span class="card-link">Visit Nine Waves</span>
+      </a>
+
+      <a href="https://www.theresetclann.com/" target="_blank" rel="noopener" class="project-card">
+        <p class="card-tag">Fitness · Retreats</p>
+        <p class="card-title">Reset Clann</p>
+        <p class="card-desc">Fitness retreat experiences designed to reset mind and body — structured programmes for groups and individuals seeking transformation.</p>
+        <span class="card-link">Visit Reset Clann</span>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="full-divider"></div>
+
+  <!-- PAYMENTS -->
+  <section id="payments" class="reveal">
+    <p class="section-label">Transactions</p>
+    <h2>Payments</h2>
+    <div class="gold-rule"></div>
+    <p>Milesia Limited processes payments on behalf of its portfolio ventures. All transactions are handled securely through industry-standard payment providers.</p>
+    <div class="payment-note">
+      <p>Payments may be collected via <strong>Stripe</strong> or <strong>Revolut</strong> payment links for bookings, services, events, or deposits. The trading name displayed on payment links or statements may reflect the individual venture (Nine Waves, Reset Clann) or Milesia Limited directly.</p>
+    </div>
+    <p style="margin-top:1.4rem; font-size:0.95rem; color:var(--stone-muted);">If you have a query about a payment or transaction, please contact us directly using the details below.</p>
+  </section>
+
+  <div class="full-divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal">
+    <p class="section-label">Get in Touch</p>
+    <h2>Contact</h2>
+    <div class="gold-rule"></div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <p class="label">Email</p>
+        <a href="mailto:devlinpj@tcd.ie">devlinpj@tcd.ie</a>
+      </div>
+      <div class="contact-item">
+        <p class="label">Phone</p>
+        <a href="tel:+35794334411">+357 94 334 411</a>
+      </div>
+      <div class="contact-item">
+        <p class="label">WhatsApp</p>
+        <a href="https://wa.me/34679225067" target="_blank" rel="noopener">+34 679 225 067</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="full-divider"></div>
+
+  <!-- REGISTERED DETAILS -->
+  <section id="registered" class="reveal">
+    <p class="section-label">Legal</p>
+    <h2>Registered Details</h2>
+    <div class="gold-rule"></div>
+    <address>
+      <strong>Milesia Limited</strong>
+      Digeni Akrita 54<br>
+      1061 Nicosia<br>
+      Cyprus<br><br>
+      Company Reg. No: HE 466829<br>
+      VAT No: 60106034P
+    </address>
+  </section>
+
+  <div class="full-divider"></div>
+
+  <!-- POLICIES -->
+  <section id="policies" class="reveal">
+    <p class="section-label">Terms</p>
+    <h2>Policies</h2>
+    <div class="gold-rule"></div>
+
+    <div class="policy-block">
+      <h3>Cancellation &amp; Refund Policy</h3>
+      <p>All bookings and service purchases made through Milesia Limited or its associated ventures (including Nine Waves and Reset Clann) are subject to the following terms. Cancellations made more than 7 days before the scheduled service or event date are eligible for a full refund. Cancellations made within 7 days of the service date may be eligible for a partial refund or credit at the discretion of the relevant venture. Deposits are non-refundable unless the service is cancelled by Milesia Limited or the relevant venture. In the event of cancellation by us, a full refund will be issued promptly. Refunds will be returned to the original payment method within 5–10 business days.</p>
+    </div>
+
+    <div class="policy-block">
+      <h3>Privacy Policy</h3>
+      <p>Milesia Limited respects your privacy and is committed to protecting your personal data. We collect only the information necessary to process bookings, provide services, and communicate with clients. This may include your name, contact details, and payment information. We do not sell, share, or transfer your personal data to third parties except as required to fulfil your booking (e.g., payment processors such as Stripe or Revolut). Your data is stored securely and retained only for as long as necessary to fulfil the purpose for which it was collected, or as required by law. You have the right to request access to, correction of, or deletion of your personal data at any time by contacting us at devlinpj@tcd.ie.</p>
+    </div>
+
+    <div class="policy-block">
+      <h3>Terms of Service</h3>
+      <p>By engaging with Milesia Limited or any of its associated ventures, you agree to these terms. All services are provided in good faith and to the best of our ability. Milesia Limited reserves the right to refuse service, reschedule, or cancel bookings where circumstances require, with appropriate notice and remedy offered to affected clients. These terms are governed by the laws of the Republic of Cyprus. Any disputes arising shall be subject to the exclusive jurisdiction of the courts of Cyprus.</p>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Milesia Limited &nbsp;·&nbsp; Reg. No. HE 466829 &nbsp;·&nbsp; Nicosia, Cyprus</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
